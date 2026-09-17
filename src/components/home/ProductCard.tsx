@@ -9,6 +9,7 @@ interface ProductCardProps {
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
   onAddToCart: (id: string) => void;
+  style?: object;
 }
 
 export default function ProductCard({
@@ -17,12 +18,14 @@ export default function ProductCard({
   isFavorite,
   onToggleFavorite,
   onAddToCart,
+  style,
 }: ProductCardProps) {
   return (
     <View
       style={[
         styles.productCard,
         { backgroundColor: theme.cardBg, borderColor: theme.border },
+        style,
       ]}
     >
       <TouchableOpacity

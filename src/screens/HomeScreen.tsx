@@ -25,7 +25,11 @@ import { CartModal } from "../components/cart";
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL;
 
-export default function HomeScreen() {
+interface HomeScreenProps {
+  onNavigateToFavorites: () => void;
+}
+
+export default function HomeScreen({ onNavigateToFavorites }: HomeScreenProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
@@ -157,6 +161,7 @@ export default function HomeScreen() {
           onToggleDarkMode={setIsDarkMode}
           cartItemsCount={cartCount}
           onCartPress={() => setIsCartVisible(true)}
+          onFavoritesPress={onNavigateToFavorites}
         />
 
         <SearchBar

@@ -1,20 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import HomeScreen from "./src/screens/HomeScreen";
+import FavoritesScreen from "./src/screens/FavoritesScreen";
 import { FavoritesProvider } from "./src/context/FavoritesContext";
 import { CartProvider } from "./src/context/CartContext";
 
+type Screen = "home" | "favorites";
+
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState<Screen>("home");
+
   return (
-    <FavoritesProvider>
-      <CartProvider>
-        <View style={styles.container}>
-          <HomeScreen />
-          {/* <CategoryScreen /> */}
-          <StatusBar style="auto" />
-        </View>
-      </CartProvider>
-    </FavoritesProvider>
+    console.log(Platform.OS),
+    <SafeAreaProvider>
+      <FavoritesProvider>
+        <CartProvider>
+          <View style={styles.container}>
+            {currentScreen === "home" ? (
+              <HomeScreen
+                onNavigateToFavorites={() => setCurrentScreen("favorites")}
+              />
+            ) : (
+              <FavoritesScreen onGoBack={() => setCurrentScreen("home")} />
+            )}
+            <StatusBar style="auto" />
+          </View>
+        </CartProvider>
+      </FavoritesProvider>
+    </SafeAreaProvider>
   );
 }
 

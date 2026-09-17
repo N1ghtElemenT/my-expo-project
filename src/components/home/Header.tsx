@@ -9,6 +9,7 @@ interface HeaderProps {
   onToggleDarkMode: (val: boolean) => void;
   cartItemsCount: number;
   onCartPress: () => void;
+  onFavoritesPress: () => void;
 }
 
 export default function Header({
@@ -17,6 +18,7 @@ export default function Header({
   onToggleDarkMode,
   cartItemsCount,
   onCartPress,
+  onFavoritesPress,
 }: HeaderProps) {
   return (
     <View style={styles.header}>
@@ -42,6 +44,16 @@ export default function Header({
             thumbColor={isDarkMode ? "#FFFFFF" : "#F4F3F4"}
           />
         </View>
+        <TouchableOpacity
+          style={[styles.favoritesButton, { backgroundColor: theme.inputBg }]}
+          onPress={onFavoritesPress}
+        >
+          <Ionicons
+            name="heart-outline"
+            size={22}
+            color={theme.textPrimary}
+          />
+        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.cartButton, { backgroundColor: theme.inputBg }]}
           onPress={onCartPress}
@@ -98,6 +110,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
+  },
+  favoritesButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   notificationButton: {
     width: 40,
